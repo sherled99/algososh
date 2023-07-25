@@ -1,0 +1,37 @@
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.main_columns {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.columns {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.colmun:not(:last-of-type) {
+  margin-right: 10px;
+}
+
+.btn{
+    width: 200px;
+}
+
+.btn:not(:last-of-type) {
+  margin-right: 12px;
+}
+
+.btn:last-of-type {
+  margin-left: 80px;
+}
+
+.btn_radio{
+    margin-right: 40px;
+    display: flex;
+}
