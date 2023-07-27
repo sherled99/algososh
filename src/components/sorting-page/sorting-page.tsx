@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect} from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import style from "./sorting-page.module.css";
 import { RadioInput } from "../ui/radio-input/radio-input";
@@ -13,6 +13,10 @@ export const SortingPage: FC = () => {
     Array<{ number: number; state: ElementStates }>
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    randomArr();
+  }, []);
 
   const onChooseClick = () => {
     setChoose(true);

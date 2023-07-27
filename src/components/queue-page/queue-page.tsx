@@ -3,83 +3,55 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Circle } from "../ui/circle/circle";
 import { Button } from "../ui/button/button";
-import { ElementStates } from "../../types/element-states";
 import style from "./queue-page.module.css";
+import { Queue } from "../../classes/queue";
 
-interface CharData {
-  letter: string | undefined;
-  state: ElementStates;
-}
 
 export const QueuePage: FC = () => {
-  const [data, setData] = useState<CharData[]>(
-    Array.from({ length: 7 }, () => ({
-      letter: undefined,
-      state: ElementStates.Default,
-    }))
-  );
+  const [queue, setQueue] = useState<Queue>(new Queue());
   const [value, setValue] = useState<string>("");
-  const [head, setHead] = useState<number>(0);
-  const [tail, setTail] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isAddDisabled, setIsAddDisabled] = useState<boolean>(false);
+  const [isAdd, setIsAdd] = useState<boolean>(false);
+  const [isRemove, setIsRemove] = useState<boolean>(false);
+
+  const isRemoveDisabled = queue.isRemoveDisabled();
+  const data = queue.getQueueData();
 
   useEffect(() => {
-    if (tail !== data.length) setIsAddDisabled(false);
-  }, [tail, data]);
+    if (queue.isAddDisabled()) setIsAddDisabled(true);
+  }, [queue]);
+
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
   const onAdd = () => {
-    setIsLoading(true);
-    if (value && tail < data.length) {
-      const newData = [...data];
-      newData[tail].letter = value;
-      newData[tail].state = ElementStates.Changing;
-      setData(newData);
+    setIsAdd(true);
+    queue.enqueue(value);
 
-      setTimeout(() => {
-        setTail((prevTail) => prevTail + 1);
-        if (tail + 1 === data.length) setIsAddDisabled(true);
-        newData[tail].state = ElementStates.Default;
-        setData(newData);
-        setValue("");
-        setIsLoading(false);
-      }, 1000);
-    }
+    setTimeout(() => {
+      setQueue(queue);
+      setValue("");
+      setIsAdd(false);
+    }, 1000);
   };
 
   const onRemove = () => {
-    setIsLoading(true);
-    if (head === tail) return;
-
-    const newData = [...data];
-    newData[head].state = ElementStates.Changing;
-    setData(newData);
+    setIsRemove(true);
+    queue.dequeue();
 
     setTimeout(() => {
-      newData[head].state = ElementStates.Default;
-      newData[head].letter = undefined;
-      setData(newData);
-      setHead((prevHead) => prevHead + 1);
-      setIsLoading(false);
+      setQueue(queue);
+      setIsRemove(false);
     }, 1000);
   };
 
   const onClear = () => {
-    setData(
-      Array.from({ length: 7 }, () => ({
-        letter: undefined,
-        state: ElementStates.Default,
-      }))
-    );
-    setHead(0);
-    setTail(0);
+    queue.clear();
     setIsAddDisabled(false);
+    setQueue(queue);
   };
-
-  const [isAddDisabled, setIsAddDisabled] = useState<boolean>(false);
 
   return (
     <SolutionLayout title="Очередь">
@@ -91,28 +63,30 @@ export const QueuePage: FC = () => {
           minLength={1}
           extraClass={style.input}
           onChange={onChange}
-          disabled={isLoading}
+          disabled={isRemove || isAdd}
           value={value}
         />
         <Button
           type="button"
           text="Добавить"
+          isLoader={isAdd}
           onClick={onAdd}
-          disabled={!value || isAddDisabled || isLoading}
+          disabled={!value || isAddDisabled || isRemove || isAdd}
           extraClass={style.button}
         />
         <Button
           type="button"
           text="Удалить"
           onClick={onRemove}
-          disabled={head === tail || isLoading}
+          isLoader={isRemove}
+          disabled={isRemoveDisabled || isRemove || isAdd}
           extraClass={style.button}
         />
         <Button
           type="button"
           text="Очистить"
           onClick={onClear}
-          disabled={head === tail || isLoading}
+          disabled={isRemove || isAdd}
           extraClass={style.button}
         />
       </div>
@@ -120,12 +94,12 @@ export const QueuePage: FC = () => {
         {data.map((char, index) => (
           <div key={index}>
             <div className={style.subtitle}>
-              {index === head ? <p className={style.label}>head</p> : <p></p>}
+              {index === queue.getHead() ? <p className={style.label}>head</p> : <p></p>}
             </div>
             <Circle letter={char.letter} state={char.state} extraClass={style.circle} />
             <span className={style.label}>{index}</span>
             <div>
-              {index === tail - 1 ? <p className={style.label}>tail</p> : <p></p>}
+              {index === queue.getTail() - 1 ? <p className={style.label}>tail</p> : <p></p>}
             </div>
           </div>
         ))}

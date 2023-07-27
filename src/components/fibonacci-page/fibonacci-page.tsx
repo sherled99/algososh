@@ -48,7 +48,7 @@ export const FibonacciPage: FC = () => {
 
   return (
     <SolutionLayout title="Последовательность Фибоначчи">
-      <form className={style.main} onClick={click}>
+      <form className={style.main} onSubmit={click}>
           <Input
             type="number"
             isLimitText
@@ -57,7 +57,7 @@ export const FibonacciPage: FC = () => {
             onChange={onChange}
             disabled={isLoading}
           />
-          <Button type="submit" text="Развернуть" isLoader={isLoading}/>
+          <Button type="submit" text="Развернуть" isLoader={isLoading} disabled={!value || parseInt(value)>19}/>
       </form>
       <div className={style.main_circle}>
         {data.map((num, index) => (

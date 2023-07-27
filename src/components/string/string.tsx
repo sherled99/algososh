@@ -91,7 +91,7 @@ export const StringComponent: FC = () => {
           onChange={onChange}
           disabled={isReversing}
         />
-        <Button type="submit" text="Развернуть" onClick={click}  isLoader={isReversing}/>
+        <Button type="submit" text="Развернуть" onClick={click} disabled={!value} isLoader={isReversing}/>
       </div>
       <div className={style.main_circle}>
         {data.map((char, index) => (
