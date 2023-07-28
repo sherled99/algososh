@@ -24,14 +24,40 @@ export class LinkedList<T> {
     this.data = [];
   }
 
-  private updateData() {
+  private setModifiedState(index: number) {
+    setTimeout(() => {
+      if (this.data[index]?.state === ElementStates.Changing) {
+        this.data[index].state = ElementStates.Default;
+      }
+    }, 1000);
+  }
+
+  private setChangingColor(index: number){
+    this.data[index].state = ElementStates.Changing;
+  }
+
+
+  private updateData(index: number, modified?: boolean) {
     const newData: CharData<T>[] = [];
     let currentNode = this.head;
+    let currentIndex = 0;
     while (currentNode) {
-      newData.push({ letter: currentNode.value, state: currentNode.state });
+      const state = modified ? ElementStates.Changing : ElementStates.Default
+      if (currentIndex === index) {
+        newData.push({ letter: currentNode.value, state: state });
+        currentIndex++;
+      } else if (currentNode.state === ElementStates.Default) {
+        newData.push({ letter: currentNode.value, state: ElementStates.Default });
+      } else {
+        newData.push({ letter: currentNode.value, state: state });
+      }
       currentNode = currentNode.next;
+      currentIndex++;
     }
     this.data = newData;
+    if(modified){
+      this.setModifiedState(index);
+    }
   }
 
   prepend(value: T) {
@@ -41,7 +67,8 @@ export class LinkedList<T> {
       this.tail = newNode;
     }
     this.size++;
-    this.updateData();
+    this.updateData(0, true);
+
   }
 
   append(value: T) {
@@ -54,7 +81,8 @@ export class LinkedList<T> {
       this.tail = newNode;
     }
     this.size++;
-    this.updateData();
+    this.updateData(this.size - 1, true);
+
   }
 
   addByIndex(index: number, value: T) {
@@ -70,10 +98,10 @@ export class LinkedList<T> {
         currentNode = currentNode!.next;
       }
 
-      const newNode: LinkedListNode<T> = { value, state: ElementStates.Default, next: currentNode!.next };
+      const newNode: LinkedListNode<T> = { value, state: ElementStates.Changing, next: currentNode!.next };
       currentNode!.next = newNode;
       this.size++;
-      this.updateData();
+      this.updateData(index, true);
     }
   }
 
@@ -92,7 +120,7 @@ export class LinkedList<T> {
 
       currentNode!.next = currentNode!.next!.next;
       this.size--;
-      this.updateData();
+      this.updateData(index);
     }
   }
 
@@ -101,7 +129,11 @@ export class LinkedList<T> {
 
     this.head = this.head.next;
     this.size--;
-    this.updateData();
+    this.updateData(0);
+  }
+
+  setColor(index: number) {
+    this.setChangingColor(index);
   }
 
   deleteTail() {
@@ -119,7 +151,7 @@ export class LinkedList<T> {
       this.tail = currentNode;
     }
     this.size--;
-    this.updateData();
+    this.updateData(this.size);
   }
 
   toArray(): T[] {
@@ -134,5 +166,9 @@ export class LinkedList<T> {
 
   getElements() {
     return this.data;
+  }
+
+  getSize(){
+    return this.size;
   }
 }

@@ -25,8 +25,8 @@ export const ListPage: FC = () => {
   const onAddToHead = () => {
     if (value) {
       setIsLoading("onAddToHead");
+      list.prepend(value);
       setTimeout(() => {
-        list.prepend(value);
         setValue("");
         setIsLoading("");
       }, 1000);
@@ -36,8 +36,8 @@ export const ListPage: FC = () => {
   const onAddToTail = () => {
     if (value) {
       setIsLoading("onAddToTail");
+      list.append(value);
       setTimeout(() => {
-        list.append(value);
         setValue("");
         setIsLoading("");
       }, 1000);
@@ -46,6 +46,7 @@ export const ListPage: FC = () => {
 
   const onRemoveFromHead = () => {
     setIsLoading("onRemoveFromHead");
+    list.setColor(0);
     setTimeout(() => {
       list.deleteHead();
       setIsLoading("");
@@ -54,6 +55,7 @@ export const ListPage: FC = () => {
 
   const onRemoveFromTail = () => {
     setIsLoading("onRemoveFromTail");
+    list.setColor(list.getSize() - 1);
     setTimeout(() => {
       list.deleteTail();
       setIsLoading("");
@@ -65,8 +67,8 @@ export const ListPage: FC = () => {
       const ind = Number(index);
       if (Number.isInteger(ind) && ind >= 0 && ind <= list.toArray().length) {
         setIsLoading("onAddByIndex");
+        list.addByIndex(ind, value);
         setTimeout(() => {
-          list.addByIndex(ind, value);
           setValue("");
           setIndex("");
           setIsLoading("");
@@ -80,6 +82,7 @@ export const ListPage: FC = () => {
       const ind = Number(index);
       if (Number.isInteger(ind) && ind >= 0 && ind < list.toArray().length) {
         setIsLoading("onRemoveByIndex");
+        list.setColor(ind);
         setTimeout(() => {
           list.deleteByIndex(ind);
           setIsLoading("");

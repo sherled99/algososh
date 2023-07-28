@@ -49,8 +49,11 @@ export const QueuePage: FC = () => {
 
   const onClear = () => {
     queue.clear();
-    setIsAddDisabled(false);
-    setQueue(queue);
+    setIsAddDisabled(true);
+    setTimeout(() => {
+      setQueue(queue);
+      setIsAddDisabled(false);
+    }, 1000);
   };
 
   return (
