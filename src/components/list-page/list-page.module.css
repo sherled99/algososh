@@ -1,0 +1,36 @@
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.main_circle{
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+}
+
+.subtitle{
+    height: 56px;
+}
+
+.input {
+  width: 204px;
+  margin-right: 12px;
+}
+
+.button:not(:last-of-type) {
+  margin-right: 12px;
+}
+
+.button_small {
+  width: 175px;
+}
+
+.button_big {
+  width: 362px;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+}
