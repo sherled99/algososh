@@ -92,7 +92,7 @@ export const ListPage: FC = () => {
   };
 
   return (
-    <SolutionLayout title="Связный список">
+    <SolutionLayout title="Связный список" data-testid="algorithm-page">
       <div className={style.main}>
         <Input
           isLimitText
@@ -101,6 +101,7 @@ export const ListPage: FC = () => {
           onChange={onChange}
           value={value}
           disabled={isLoading != ""}
+          data-testid="input"
           placeholder="Введите значение"
         />
         <Button
@@ -108,16 +109,18 @@ export const ListPage: FC = () => {
           text="Добавить в head"
           onClick={onAddToHead}
           extraClass={`${style.button} ${style.button_small}`}
-          disabled={isLoading != ""}
+          disabled={isLoading != "" || !value}
           isLoader={isLoading === "onAddToHead"}
+          data-testid="add-head-button"
         />
         <Button
           type="button"
           text="Добавить в tail"
           onClick={onAddToTail}
           extraClass={`${style.button} ${style.button_small}`}
-          disabled={isLoading != ""}
+          disabled={isLoading != "" || !value}
           isLoader={isLoading === "onAddToTail"}
+          data-testid="add-tail-button"
         />
         <Button
           type="button"
@@ -126,6 +129,7 @@ export const ListPage: FC = () => {
           disabled={list.toArray().length === 0 || isLoading != ""}
           isLoader={isLoading === "onRemoveFromHead"}
           extraClass={`${style.button} ${style.button_small}`}
+          data-testid="remove-head-button"
         />
         <Button
           type="button"
@@ -134,6 +138,7 @@ export const ListPage: FC = () => {
           disabled={list.toArray().length === 0 || isLoading != ""}
           isLoader={isLoading === "onRemoveFromTail"}
           extraClass={`${style.button} ${style.button_small}`}
+          data-testid="remove-tail-button"
         />
       </div>
       <div className={style.main}>
@@ -144,6 +149,7 @@ export const ListPage: FC = () => {
           placeholder="Введите индекс"
           disabled={isLoading != ""}
           type="number"
+          data-testid="input-index"
         />
         <Button
           type="button"
@@ -152,6 +158,7 @@ export const ListPage: FC = () => {
           isLoader={isLoading === "onAddByIndex"}
           disabled={!value || index === "" || list.toArray().length >= 7 || isLoading != "" || elements.length -1 < parseInt(index) || parseInt(index) < 0}
           extraClass={`${style.button} ${style.button_big}`}
+          data-testid="add-index-button"
         />
         <Button
           type="button"
@@ -160,6 +167,7 @@ export const ListPage: FC = () => {
           isLoader={isLoading === "onRemoveByIndex"}
           disabled={index === "" || list.toArray().length === 0 || isLoading != "" || elements.length -1 < parseInt(index) || parseInt(index) < 0}
           extraClass={`${style.button} ${style.button_big}`}
+          data-testid="remove-index-button"
         />
       </div>
       <div className={style.main_circle}>
@@ -174,7 +182,9 @@ export const ListPage: FC = () => {
               <div className={style.subtitle}>
                 {index === 0 ? <p className={style.label}>head</p> : <p></p>}
               </div>
-              <Circle letter={char.letter} state={char.state} key={index} />
+              <div  data-testid={`circle-${index}`}>
+                <Circle letter={char.letter} state={char.state} key={index} />
+              </div>
               <span className={style.label}>{index}</span>
               <div>
                 {index === list.toArray().length - 1 ? (

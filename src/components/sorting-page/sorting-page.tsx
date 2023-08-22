@@ -14,9 +14,9 @@ export const SortingPage: FC = () => {
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    randomArr();
-  }, []);
+  // useEffect(() => {
+  //   randomArr();
+  // }, []);
 
   const onChooseClick = () => {
     setChoose(true);
@@ -45,6 +45,10 @@ export const SortingPage: FC = () => {
     }
 
     setMas(result);
+  };
+
+  const onOneElemeinInArr = () => {
+    setMas([{ number: 1, state: ElementStates.Default }]);
   };
 
   const selectionSort = (ascending: boolean) => {
@@ -159,12 +163,14 @@ export const SortingPage: FC = () => {
   };
 
   const onSort = (ascending: boolean) => {
-    mas.map((x) => (x.state = ElementStates.Default));
-    choose ? selectionSort(ascending) : bubbleSort(ascending);
+    if (mas && mas.length > 0){
+      mas.map((x) => (x.state = ElementStates.Default));
+      choose ? selectionSort(ascending) : bubbleSort(ascending);
+    }
   };
 
   return (
-    <SolutionLayout title="Сортировка массива">
+    <SolutionLayout title="Сортировка массива" data-testid="algorithm-page">
       <div className={style.main}>
         <RadioInput checked={choose} label="Выбор" onChange={onChooseClick} extraClass={style.btn_radio} disabled={isLoading} />
         <RadioInput checked={bubble} label="Пузырёк" onChange={onBubbleClick} extraClass={style.btn_radio} disabled={isLoading} />
@@ -189,16 +195,26 @@ export const SortingPage: FC = () => {
           onClick={randomArr}
           extraClass={style.btn}
         />
+        <Button
+          disabled={isLoading}
+          type="button"
+          text="Массив = 1"
+          onClick={onOneElemeinInArr}
+          extraClass={style.btn}
+        />
       </div>
       <div className={style.main_columns}>
         <div className={style.columns}>
           {mas.map((number, index) => (
+            <div key={index} data-testid={`column-${index}`} className={number.state}>
             <Column
               state={number.state}
               key={index}
               index={number.number}
               extraClass={style.colmun}
-            />
+              />
+              </div>
+            
           ))}
         </div>
       </div>

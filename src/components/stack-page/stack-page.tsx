@@ -3,7 +3,6 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import style from "./stack-page.module.css";
 import { Button } from "../ui/button/button";
 import { Input } from "../ui/input/input";
-import { ElementStates } from "../../types/element-states";
 import { Circle } from "../ui/circle/circle";
 import { Stack } from "../../classes/stack";
 
@@ -45,7 +44,7 @@ export const StackPage: FC = () => {
   };
 
   return (
-    <SolutionLayout title="Стек">
+    <SolutionLayout title="Стек" data-testid="algorithm-page">
       <div className={style.main}>
         <Input
           isLimitText
@@ -55,6 +54,7 @@ export const StackPage: FC = () => {
           onChange={onChange}
           value={value}
           disabled={isAdd || isRemove}
+          data-testid="input"
         />
         <Button
           type="button"
@@ -63,6 +63,7 @@ export const StackPage: FC = () => {
           onClick={onAdd}
           extraClass={style.button}
           disabled={!value || isAdd || isRemove || stack.getSize() >= stack.getMaxSize()}
+          data-testid="add-button"
         />
         <Button
           type="button"
@@ -71,6 +72,7 @@ export const StackPage: FC = () => {
           onClick={onRemove}
           extraClass={style.button}
           disabled={stack.getSize() === 0 || isAdd || isRemove}
+          data-testid="remove-button"
         />
         <Button
           type="button"
@@ -78,6 +80,7 @@ export const StackPage: FC = () => {
           onClick={onClear}
           extraClass={style.button}
           disabled={stack.getSize() === 0 || isAdd || isRemove}
+          data-testid="clear-button"
         />
       </div>
       <div className={style.main}>
@@ -90,7 +93,9 @@ export const StackPage: FC = () => {
                 <p></p>
               )}
             </div>
-            <Circle letter={letter.letter} state={letter.state} extraClass={style.circle} />
+            <div  data-testid={`circle-${index}`}>
+              <Circle letter={letter.letter} state={letter.state} extraClass={style.circle} />
+            </div>
             <span className={style.label}>{index}</span>
           </div>
         ))}
