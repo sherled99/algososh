@@ -1,5 +1,6 @@
-import renderer from "react-test-renderer"; // Импортируйте react-test-renderer
-import { Circle } from "./circle";
+import React from "react";
+import renderer from "react-test-renderer";
+import { Circle } from "./circle"; // Путь к вашему компоненту
 import { ElementStates } from "../../../types/element-states";
 
 describe("Circle Component Snapshots", () => {
@@ -24,7 +25,7 @@ describe("Circle Component Snapshots", () => {
   });
 
   it("renders correctly with an index", () => {
-    const tree = renderer.create(<Circle index="1" />).toJSON();
+    const tree = renderer.create(<Circle index={1} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 

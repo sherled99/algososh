@@ -11,6 +11,10 @@ describe('SortingPage Component', () => {
       </MemoryRouter>
     );
 
+    const buttonCreate = screen.getByText('Пустой');
+    fireEvent.click(buttonCreate);
+
+
     const ascendingButton = screen.getByText('По возрастанию');
     fireEvent.click(ascendingButton);
 

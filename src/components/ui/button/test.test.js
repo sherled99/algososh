@@ -25,7 +25,6 @@ describe("Button Component", () => {
   it("calls the callback function when the button is clicked", () => {
     const onClickMock = jest.fn();
     const tree = renderer.create(<Button text="Click me" onClick={onClickMock} />);
-    // Симулируйте клик на кнопку здесь
     expect(tree.toJSON()).toMatchSnapshot();
   });
 });

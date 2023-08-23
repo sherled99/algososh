@@ -9,9 +9,11 @@ exports[`Circle Component Snapshots renders correctly as small circle 1`] = `
   />
   <div
     className="circle  small default"
+    data-testid="default"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     />
   </div>
   <p
@@ -32,9 +34,11 @@ exports[`Circle Component Snapshots renders correctly in changing state 1`] = `
   />
   <div
     className="circle   changing"
+    data-testid="changing"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     />
   </div>
   <p
@@ -55,9 +59,11 @@ exports[`Circle Component Snapshots renders correctly in default state 1`] = `
   />
   <div
     className="circle   default"
+    data-testid="default"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     />
   </div>
   <p
@@ -78,9 +84,11 @@ exports[`Circle Component Snapshots renders correctly in modified state 1`] = `
   />
   <div
     className="circle   modified"
+    data-testid="modified"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     />
   </div>
   <p
@@ -103,9 +111,11 @@ exports[`Circle Component Snapshots renders correctly with a head 1`] = `
   </div>
   <div
     className="circle   default"
+    data-testid="default"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     />
   </div>
   <p
@@ -126,9 +136,11 @@ exports[`Circle Component Snapshots renders correctly with a letter 1`] = `
   />
   <div
     className="circle   default"
+    data-testid="default"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     >
       A
     </p>
@@ -155,9 +167,11 @@ exports[`Circle Component Snapshots renders correctly with a react element in he
   </div>
   <div
     className="circle   default"
+    data-testid="default"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     />
   </div>
   <p
@@ -178,9 +192,11 @@ exports[`Circle Component Snapshots renders correctly with a react element in ta
   />
   <div
     className="circle   default"
+    data-testid="default"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     />
   </div>
   <p
@@ -205,9 +221,11 @@ exports[`Circle Component Snapshots renders correctly with a tail 1`] = `
   />
   <div
     className="circle   default"
+    data-testid="default"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     />
   </div>
   <p
@@ -230,9 +248,11 @@ exports[`Circle Component Snapshots renders correctly with an index 1`] = `
   />
   <div
     className="circle   default"
+    data-testid="default"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     />
   </div>
   <p
@@ -255,9 +275,11 @@ exports[`Circle Component Snapshots renders correctly without letter and element
   />
   <div
     className="circle   default"
+    data-testid="default"
   >
     <p
       className="text text_type_circle text_color_input letter"
+      data-testid="letter"
     />
   </div>
   <p

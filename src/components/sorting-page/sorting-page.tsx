@@ -14,9 +14,9 @@ export const SortingPage: FC = () => {
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   randomArr();
-  // }, []);
+  useEffect(() => {
+    randomArr();
+  }, []);
 
   const onChooseClick = () => {
     setChoose(true);
@@ -50,6 +50,10 @@ export const SortingPage: FC = () => {
   const onOneElemeinInArr = () => {
     setMas([{ number: 1, state: ElementStates.Default }]);
   };
+
+  const onClear = () => {
+    setMas([]);
+  }
 
   const selectionSort = (ascending: boolean) => {
     setIsLoading(true);
@@ -200,7 +204,14 @@ export const SortingPage: FC = () => {
           type="button"
           text="Массив = 1"
           onClick={onOneElemeinInArr}
-          extraClass={style.btn}
+          extraClass={style.btn_visivle}
+        />
+        <Button
+          disabled={isLoading}
+          type="button"
+          text="Пустой"
+          onClick={onClear}
+          extraClass={style.btn_visivle}
         />
       </div>
       <div className={style.main_columns}>
@@ -214,7 +225,6 @@ export const SortingPage: FC = () => {
               extraClass={style.colmun}
               />
               </div>
-            
           ))}
         </div>
       </div>
