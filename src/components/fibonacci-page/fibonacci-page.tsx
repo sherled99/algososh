@@ -47,7 +47,7 @@ export const FibonacciPage: FC = () => {
   };
 
   return (
-    <SolutionLayout title="Последовательность Фибоначчи">
+    <SolutionLayout title="Последовательность Фибоначчи" data-testid="algorithm-page">
       <form className={style.main} onSubmit={click}>
           <Input
             type="number"
@@ -56,12 +56,15 @@ export const FibonacciPage: FC = () => {
             extraClass={style.input}
             onChange={onChange}
             disabled={isLoading}
+            data-testid="input"
           />
-          <Button type="submit" text="Развернуть" isLoader={isLoading} disabled={!value || parseInt(value)>19}/>
+          <Button type="submit" text="Развернуть" isLoader={isLoading} disabled={!value || parseInt(value)>19} data-testid="fibonacci-button"/>
       </form>
       <div className={style.main_circle}>
         {data.map((num, index) => (
-          <Circle key={index} letter={num.toString()} />
+          <div  data-testid={`circle-${index}`}>
+            <Circle key={index} letter={num.toString()} />
+          </div>
         ))}
       </div>
     </SolutionLayout>

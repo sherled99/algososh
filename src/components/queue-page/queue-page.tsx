@@ -57,7 +57,7 @@ export const QueuePage: FC = () => {
   };
 
   return (
-    <SolutionLayout title="Очередь">
+    <SolutionLayout title="Очередь" data-testid="algorithm-page">
       <div className={style.main}>
         <Input
           isLimitText
@@ -68,6 +68,7 @@ export const QueuePage: FC = () => {
           onChange={onChange}
           disabled={isRemove || isAdd}
           value={value}
+          data-testid="input"
         />
         <Button
           type="button"
@@ -76,6 +77,7 @@ export const QueuePage: FC = () => {
           onClick={onAdd}
           disabled={!value || isAddDisabled || isRemove || isAdd}
           extraClass={style.button}
+          data-testid="add-button"
         />
         <Button
           type="button"
@@ -84,6 +86,7 @@ export const QueuePage: FC = () => {
           isLoader={isRemove}
           disabled={isRemoveDisabled || isRemove || isAdd}
           extraClass={style.button}
+          data-testid="remove-button"
         />
         <Button
           type="button"
@@ -91,6 +94,7 @@ export const QueuePage: FC = () => {
           onClick={onClear}
           disabled={isRemove || isAdd}
           extraClass={style.button}
+          data-testid="clear-button"
         />
       </div>
       <div className={style.main}>
@@ -99,7 +103,9 @@ export const QueuePage: FC = () => {
             <div className={style.subtitle}>
               {index === queue.getHead() ? <p className={style.label}>head</p> : <p></p>}
             </div>
-            <Circle letter={char.letter} state={char.state} extraClass={style.circle} />
+            <div  data-testid={`circle-${index}`}>
+              <Circle letter={char.letter} state={char.state} extraClass={style.circle} />
+            </div>
             <span className={style.label}>{index}</span>
             <div>
               {index === queue.getTail() - 1 ? <p className={style.label}>tail</p> : <p></p>}

@@ -11,7 +11,7 @@ import style from "./app.module.css";
 
 function App() {
   return (
-    <div className={style.app}>
+    <div className={style.app} data-testid="algorithm-page">
       <BrowserRouter>
         <Switch>
           <Route path="/" exact>

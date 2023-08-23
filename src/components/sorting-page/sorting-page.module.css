@@ -35,3 +35,7 @@
     margin-right: 40px;
     display: flex;
 }
+
+.btn_visivle{
+  visibility: hidden;
+}
